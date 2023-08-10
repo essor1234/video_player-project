@@ -24,7 +24,7 @@ class VideosController:
             print(f"Error in thread {update_thread.name}: {e}")
 
     def update_data_list(self, file_path):
-        # Read the csv file and update the videos list every 5 seconds
+        # Read the csv file and update the videos list every 3 seconds
         while True:
             df = pd.read_csv(file_path)
             self.lists = VideoList.main()
@@ -143,9 +143,13 @@ class VideosController:
 
     def find_videos_by_title(self, video_title):
         video_list = []
+        # run through data
         for video in self.videos:
             if video_title.lower().replace(" ","") in video.title.lower().replace(" ",""):
                 video_list.append([video.id, video.title, video.director, video.rate])
+
+        if not video_list:
+            return None
 
         return video_list
 
@@ -154,7 +158,8 @@ class VideosController:
         for video in self.videos:
             if director_name.lower().replace(" ", "") in video.director.lower().replace(" ", ""):
                 video_list.append([video.id, video.title, video.director, video.rate])
-
+        if not video_list:
+            return None
         return video_list
 
 
@@ -167,7 +172,7 @@ class VideosController:
 
         # If no videos match the input, return an error message
         if not video_list:
-            return "This is invalid number"
+            return None
         # Otherwise, return the list of videos
         else:
             return video_list
@@ -179,7 +184,7 @@ class VideosController:
                 list_list.append([list.id, list.title, list.duration])
         # If no videos match the input, return an error message
         if not list_list:
-            return "This is invalid number"
+            return None
         # Otherwise, return the list of videos
         else:
             return list_list
@@ -190,6 +195,8 @@ class VideosController:
             if list_title.lower().replace(" ","") in list.title.lower().replace(" ",""):
                 list_list.append([list.id, list.title, list.duration])
 
+        if not list_list:
+            return None
         return list_list
 
     """Check videos"""
@@ -210,11 +217,18 @@ class VideosController:
         for info in self.lists:
             if int(list_id) == info.id:
                 # split the info.video string by comma and convert each element to an integer
-                video_ids = [int(id) for id in info.video.split(",")]
-                for video_id in video_ids:
-                    for vid in self.videos:
-                        if video_id == int(vid.id):
-                            video_list.append([vid.id, vid.title, vid.director, vid.rate])
+                try:
+                    video_ids = [int(id) for id in str(info.video).split(",")]
+                    for video_id in video_ids:
+                        for vid in self.videos:
+                            if video_id == int(vid.id):
+                                video_list.append([vid.id, vid.title, vid.director, vid.rate])
+                except AttributeError:
+                    return None
+                except ValueError:
+                    return None
+
+
         return video_list
 
     """add/remove video from list"""

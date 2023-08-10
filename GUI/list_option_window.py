@@ -110,14 +110,19 @@ class ListOptionWindow(tk.Frame):
         list_id, list_title = self.create_video_list.info_for_chosen_list()
 
         list_video_ids = set()
-        for current_video in controller.display_videos_in_list(list_id):
-            current_video_id = current_video[0]
-            list_video_ids.add(current_video_id)
+        try:
+            for current_video in controller.display_videos_in_list(list_id):
+                current_video_id = current_video[0]
+                list_video_ids.add(current_video_id)
 
-            # For each data, add a new row to the display
-        for video in controller.list_videos():  # For each video
-            video_id = video[0]
-            if video_id not in list_video_ids:
+                # For each data, add a new row to the display
+            for video in controller.list_videos():  # For each video
+                video_id = video[0]
+                if video_id not in list_video_ids:
+                    self.all_videos.insert("", "end", values=(video[0], video[1], video[2], "*" * video[3]))
+        # video lsit have None video, display all videos
+        except TypeError:
+            for video in controller.list_videos():
                 self.all_videos.insert("", "end", values=(video[0], video[1], video[2], "*" * video[3]))
 
 
@@ -169,9 +174,13 @@ class ListOptionWindow(tk.Frame):
     # display video in list
     def video_in_list_display(self):
         list_id, list_title = self.create_video_list.info_for_chosen_list()
-        for video in controller.display_videos_in_list(list_id):
-            self.video_added.insert("", "end", values=(video[0], video[1], video[2], "*" * video[3]))
-        self.get_current_name.insert(0, list_title)
+        try:
+            for video in controller.display_videos_in_list(list_id):
+                self.video_added.insert("", "end", values=(video[0], video[1], video[2], "*" * video[3]))
+            self.get_current_name.insert(0, list_title)
+        except TypeError:
+            self.video_added.insert("", "end", values=("", "", "", ""))
+            self.get_current_name.insert(0, list_title)
 
     def save_function(self):
         # get id_list
@@ -179,9 +188,14 @@ class ListOptionWindow(tk.Frame):
         video_list = []
         list_name = self.get_current_name.get()
 
+
         for line in self.video_added.get_children():
             video = self.video_added.item(line)["values"]
             video_list.append(str(video[0]))
+
+        while "" in video_list:
+            video_list.remove("")
+
 
         video_list = ", ".join(video_list)
 

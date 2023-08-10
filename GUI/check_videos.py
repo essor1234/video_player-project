@@ -151,8 +151,12 @@ class CheckVideos(tk.Frame):
         # if the selected mode is "Title":
         if selected_mode == "Title":
             # Perform the search and update the display
-            for video in controller.find_videos_by_title(search_value):
-                self.main_display.insert("", "end", values=(video[0], video[1], video[2], "*" * int(video[3])))
+            try:
+                for video in controller.find_videos_by_title(search_value):
+                    self.main_display.insert("", "end", values=(video[0], video[1], video[2], "*" * int(video[3])))
+            except TypeError:
+                    self.main_display.insert("", "end", values=("", "None", "", ""))
+
         # if the selected mode is "Id":
         elif selected_mode == "Id":
             try:
@@ -167,10 +171,16 @@ class CheckVideos(tk.Frame):
                 warning_label = tk.Label(self.search_frame, text=f"There's no {search_value}th video!", fg="red")
                 warning_label.grid(row=1, column=1)
                 warning_label.after(1000, warning_label.destroy)
+            except TypeError:
+                    self.main_display.insert("", "end", values=("", "None", "", ""))
         # if the selected mode is "Director":
         elif selected_mode == "Director":
-            for video in controller.find_videos_by_director(search_value):
-                self.main_display.insert("", "end", values=(video[0], video[1], video[2], "*" * int(video[3])))
+            try:
+                for video in controller.find_videos_by_director(search_value):
+                    self.main_display.insert("", "end", values=(video[0], video[1], video[2], "*" * int(video[3])))
+            except TypeError:
+                    self.main_display.insert("", "end", values=("", "None", "", ""))
+
         # if the selected mode is "Rate":
         elif selected_mode == "Rate":
             try:
@@ -182,6 +192,10 @@ class CheckVideos(tk.Frame):
                 warning_label.grid(row=1, column=1)
                 warning_label.after(1000, warning_label.destroy)
             except IndexError:
+                warning_label = tk.Label(self.search_frame, text=f"There's no {search_value} rate !", fg="red")
+                warning_label.grid(row=1, column=1)
+                warning_label.after(1000, warning_label.destroy)
+            except TypeError:
                 warning_label = tk.Label(self.search_frame, text=f"There's no {search_value} rate !", fg="red")
                 warning_label.grid(row=1, column=1)
                 warning_label.after(1000, warning_label.destroy)

@@ -50,20 +50,24 @@ class Videos:
     def plays_count(self, list_id):
         # read the video_lists.csv file into a data frame
         df_list = pd.read_csv(self.file_path_list)
-        # get the video_ids value from the row that matches the list_id
-        video_ids = df_list.loc[df_list.id == list_id, 'video_ids'].values[0]
-        # split the video_ids by comma to get a list of video ids
-        video_ids = video_ids.split(",")
-        # convert each video id to an integer
-        video_ids = [int(id) for id in video_ids]
-        # read the videos.csv file into a data frame
-        df_video = pd.read_csv(self.file_path_videos)
-        # increment the plays value by 1 for the rows that match the video ids
-        df_video.loc[df_video.id.isin(video_ids), 'plays'] += 1
-        # save the updated data frame to the same file
-        df_video.to_csv(self.file_path_videos, index=False)
-        # return the updated data frame or videos list
-        return df_video
+        try:
+            # get the video_ids value from the row that matches the list_id
+            video_ids = df_list.loc[df_list.id == list_id, 'video_ids'].values[0]
+            # split the video_ids by comma to get a list of video ids
+            video_ids = video_ids.split(",")
+            # convert each video id to an integer
+            video_ids = [int(id) for id in video_ids]
+            # read the videos.csv file into a data frame
+            df_video = pd.read_csv(self.file_path_videos)
+            # increment the plays value by 1 for the rows that match the video ids
+            df_video.loc[df_video.id.isin(video_ids), 'plays'] += 1
+            # save the updated data frame to the same file
+            df_video.to_csv(self.file_path_videos, index=False)
+            # return the updated data frame or videos list
+            return df_video
+        except AttributeError:
+            return None
+
 
     @classmethod
     def delete_video(self, video_id):

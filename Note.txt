@@ -72,3 +72,4 @@ fixing problem----------------
 - search nothing will caught error
 - cannot auto update after change data info, but have to click search or list all to make it appear
 - delete should have error if there's no data to delete
+- list without any videos when add video in will not in a rigth shape

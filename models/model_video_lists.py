@@ -22,7 +22,6 @@ class VideoList:
     def main(self):
         # read the csv file into a data frame
         df = pd.read_csv(self.file_path_list)
-        # get the last modified time of the file
         # create an empty list to store the VideoList objects
         all_list = []
         # loop through the rows of the data frame
@@ -32,30 +31,61 @@ class VideoList:
             title = row['title']
             video = row['video_ids']
             duration = row['duration']
+            # check if there is video in list or not
+            if pd.isna(video):
+                duration=0
             # create a VideoList object with the values
             list = VideoList(id=id, title=title, video=video, duration=duration)
             # append the object to the list
             all_list.append(list)
-        # return the list of objects and the last modified time
+        # return the list of objects
         return all_list
 
-    def length(self):
+    @classmethod
+    def update_list(self, list_id, new_title, new_video_ids):
+        df = pd.read_csv(self.file_path_list, header=0)
+        # get the index of the row that matches the list_id
+        index = df.index[df.id == list_id][0]
+        # update the title and video_ids columns with the new values
+        df.loc[index, "title"] = new_title
+        df.loc[index, "video_ids"] = new_video_ids
+        # update the duration column by counting the number of video ids
+        df.loc[index, "duration"] = len(new_video_ids.split(", "))
+        try:
+            df.to_csv(self.file_path_list, index=False)  # save the updated dataframe to the file
+            return True
+        except:
+            return False
+
+    '''def length(self):
         # read the csv file into a data frame
         df = pd.read_csv(self.file_path_list)
         # get the video_ids value from the object attribute
+        df['video_ids'] = df['video_ids'].apply(lambda x: x if isinstance(x, str) else "")
+
         video_ids = self.video
-        # split the video_ids by comma to get a list of video ids
-        video_ids = video_ids.split(",")
-        # convert each video id to an integer
-        video_ids = [int(id) for id in video_ids]
-        # get the length of the list and store it as the duration value
-        duration = len(video_ids)
-        # update the duration attribute with the new value
-        self.duration = duration
-        # update the data frame with the new duration value for the matching id
-        df.loc[df.id == self.id, 'duration'] = duration
-        # save the updated data frame to the same file
-        df.to_csv(self.file_path_list, index=False)
+        print(type(video_ids))
+        # check if video_ids is a string before calling split()
+        if isinstance(video_ids, str):
+            # check if there is any video in video_ids
+            print(video_ids)
+            if video_ids:
+                print(f"have: {video_ids}")
+                # split the video_ids by comma to get a list of video ids
+                video_ids = video_ids.split(",")
+                # convert each video id to an integer
+                video_ids = [int(id) for id in video_ids]
+                # get the length of the list and store it as the duration value
+                duration = len(video_ids)
+            else:
+                print("dont have")
+                duration = 0
+            # update the duration attribute with the new value
+            self.duration = duration
+            # update the data frame with the new duration value for the matching id and video_ids
+            df.loc[(df.id == self.id) & (df.video_ids == self.video), 'duration'] = duration
+            # save the updated data frame to the same file
+            df.to_csv(self.file_path_list, index=False)'''
 
     @classmethod
     def delete_list(self, list_id):
@@ -82,21 +112,7 @@ class VideoList:
         except:
             return False
 
-    @classmethod
-    def update_list(self, list_id, new_title, new_video_ids):
-        df = pd.read_csv(self.file_path_list, header=0)
-        # get the index of the row that matches the list_id
-        index = df.index[df.id == list_id][0]
-        # update the title and video_ids columns with the new values
-        df.loc[index, "title"] = new_title
-        df.loc[index, "video_ids"] = new_video_ids
-        # update the duration column by counting the number of video ids
-        df.loc[index, "duration"] = len(new_video_ids.split(", "))
-        try:
-            df.to_csv(self.file_path_list, index=False)  # save the updated dataframe to the file
-            return True
-        except:
-            return False
+
 
 
 '''

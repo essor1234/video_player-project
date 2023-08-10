@@ -139,10 +139,15 @@ class CreateVideoList(tk.Frame):
                 warning_label = tk.Label(self.search_frame, text="PLease choose a list to optimize", fg="red")
                 warning_label.grid(row=1, column=1)
             # call the plays_count() method with the list id variable as an argument only once
-            Videos.plays_count(list_id)
-            warning_label = tk.Label(self.search_frame, text=f"All videos in list {list_id} have been playing", fg="green")
-            warning_label.grid(row=1, column=1)
-            warning_label.after(700, warning_label.destroy)
+
+            is_played = Videos.plays_count(list_id)
+            if is_played == None:
+                warning_label = tk.Label(self.search_frame, text="There is no video in list to play", fg="red")
+                warning_label.grid(row=1, column=1)
+            else:
+                warning_label = tk.Label(self.search_frame, text=f"All videos in list {list_id} have been playing", fg="green")
+                warning_label.grid(row=1, column=1)
+                warning_label.after(1000, warning_label.destroy)
 
 
 
@@ -159,9 +164,13 @@ class CreateVideoList(tk.Frame):
             return
         # if the selected mode is "Title":
         if selected_mode == "Title":
-            # Perform the search and update the display
-            for list in controller.find_list_by_title(search_value):
-                self.list_display.insert("", "end", values=(list[0], list[1], list[2]))
+            try:
+                # Perform the search and update the display
+                for list in controller.find_list_by_title(search_value):
+                    self.list_display.insert("", "end", values=(list[0], list[1], list[2]))
+            except TypeError:
+                    self.list_display.insert("", "end", values=("", "None", "", ""))
+
         # if the selected mode is "Id":
         elif selected_mode == "Id":
             try:
@@ -175,7 +184,7 @@ class CreateVideoList(tk.Frame):
             except IndexError:
                 warning_label = tk.Label(self.search_frame, text=f"There's no {search_value}th video!", fg="red")
                 warning_label.grid(row=1, column=1)
-                warning_label.after(700, warning_label.destroy)
+                warning_label.after(1000, warning_label.destroy)
 
     def create_list_window_frame_display(self):
         # create a Toplevel widget
@@ -205,6 +214,7 @@ class CreateVideoList(tk.Frame):
     def info_for_chosen_list(self):
         try:
             item_id = self.list_display.focus()
+            # get id and title of list
             item = self.list_display.item(item_id, "values")
             try:
                 list_id = int(item[0])
@@ -233,8 +243,13 @@ class CreateVideoList(tk.Frame):
             list_id = item[0]
         except ValueError:
             list_id = -1
-        for video in controller.display_videos_in_list(list_id):
-            self.video_display.insert("", "end", values=(video[0], video[1], video[2], "*" * int(video[3])))
+
+        try:
+            for video in controller.display_videos_in_list(list_id):
+                self.video_display.insert("", "end", values=(video[0], video[1], video[2], "*" * int(video[3])))
+        except TypeError:
+            item_id = self.video_display.insert("", "end", values=("", "", "", ""))
+            self.video_display.set(item_id, column="Title", value="None")
 
     def delete_function(self):
             selected_items = self.list_display.selection()
