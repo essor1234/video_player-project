@@ -1,5 +1,3 @@
-import os
-import uuid
 from models.model_video_lists import VideoList
 from models.model_videos import Videos
 import threading
@@ -228,10 +226,9 @@ class VideosController:
                 except ValueError:
                     return None
 
-
         return video_list
 
-    """add/remove video from list"""
+
 
 
 

@@ -30,11 +30,6 @@ def test_main(capsys, sample):
         assert list.video == list.video
 
 
-def test_length():
-    vl = VideoList(id=1, duration=10, video="1, 2, 3")
-    vl.length()
-    assert vl.duration == 3
-
 def test_delete_list(tmpdir):
     p = tmpdir.mkdir("sub").join("video_lists.csv")
     p.write("id,title,video_ids,duration\n1,test,1,2\n2,test2,2,3")

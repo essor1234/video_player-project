@@ -141,7 +141,7 @@ class CreateVideoList(tk.Frame):
             # call the plays_count() method with the list id variable as an argument only once
 
             is_played = Videos.plays_count(list_id)
-            if is_played == None:
+            if is_played is None:
                 warning_label = tk.Label(self.search_frame, text="There is no video in list to play", fg="red")
                 warning_label.grid(row=1, column=1)
             else:
@@ -283,9 +283,3 @@ class CreateVideoList(tk.Frame):
         for item in controller.list_list(): # For each data
             self.list_display.insert("", "end", values=(item[0], item[1], item[3])) # add a new row to the display
 
-
-
-'''if __name__ == "__main__":  # only runs when this file is run as a standalone
-    window = tk.Tk()  # create a TK object
-    CreateVideoList(window)  # open the CheckVideo GUI
-    window.mainloop()'''

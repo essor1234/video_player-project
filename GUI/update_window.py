@@ -1,7 +1,6 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
-from controllers.Videos_controller import controller
 from models.model_videos import Videos
 
 class UpdateWindow(tk.Frame):

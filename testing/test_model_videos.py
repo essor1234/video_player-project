@@ -33,8 +33,6 @@ def test_main(capsys, sample):
         assert video.plays == sample.plays
 
 
-
-
 def test_plays_count(tmpdir):
     # call the plays_count method with list_id=1
     df_video = Videos.plays_count(1)

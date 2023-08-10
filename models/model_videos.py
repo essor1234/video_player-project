@@ -97,39 +97,3 @@ class Videos:
             return False
 
 
-
-'''videos = }
-videos["01"] = Videos(" Jurassic Park", "Steven Spielberg", 5)
-videos["02"] = Videos(" Titanic ", "James Cameron", 4)
-videos["03"] = Videos(" Inception", "Christopher Nolan", 5)
-videos["04"] = Videos(" Pulp Fiction", "Quentin Tarantino", 3)
-videos["05"] = Videos(" Goodfellas", "Martin Scorsese", 5)
-videos["06"] = Videos("Spirited Away ", "Hayao Miyazaki", 5)
-videos["07"] = Videos("Your Name"," Makoto Shinkai", 5)
-videos["08"] = Videos("A Whisker Away", " Junichi Sato and Tomotaka Shibayama", 5)
-
-#create csv file
-import csv
-
-# Create a list of field names for the csv file
-field_names = ["id", "title", "director", "rate", "plays"]
-
-# Open a new csv file with write mode
-with open("videos.csv", "w") as csv_file:
-    # Create a csv writer object
-    csv_writer = csv.DictWriter(csv_file, fieldnames=field_names)
-    # Write the header row
-    csv_writer.writeheader()
-    # Loop through the videos dictionary and write each video as a row
-    for video_id, video in videos.items():
-        # Create a dictionary with the video attributes
-        video_dict = {
-            "id": video_id,
-            "title": video.title,
-            "director": video.director,
-            "rate": video.rate,
-            "plays": video.plays
-        }
-        # Write the video dictionary as a row
-        csv_writer.writerow(video_dict)'''
-

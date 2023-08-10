@@ -1,7 +1,4 @@
 from controllers.Videos_controller import controller
-from models.model_videos import Videos
-from models.model_video_lists import VideoList
-import pytest
 
 
 

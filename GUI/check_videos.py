@@ -200,13 +200,6 @@ class CheckVideos(tk.Frame):
                 warning_label.grid(row=1, column=1)
                 warning_label.after(1000, warning_label.destroy)
 
-'''
-if __name__ == "__main__":  # only runs when this file is run as a standalone
-    window = tk.Tk()  # create a TK object
-    CheckVideos(window)  # open the CheckVideo GUI
-    window.mainloop()  # run the window main loop, reacting to button presses, etc
-'''
-
 
 
 

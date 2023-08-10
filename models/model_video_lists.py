@@ -57,36 +57,6 @@ class VideoList:
         except:
             return False
 
-    '''def length(self):
-        # read the csv file into a data frame
-        df = pd.read_csv(self.file_path_list)
-        # get the video_ids value from the object attribute
-        df['video_ids'] = df['video_ids'].apply(lambda x: x if isinstance(x, str) else "")
-
-        video_ids = self.video
-        print(type(video_ids))
-        # check if video_ids is a string before calling split()
-        if isinstance(video_ids, str):
-            # check if there is any video in video_ids
-            print(video_ids)
-            if video_ids:
-                print(f"have: {video_ids}")
-                # split the video_ids by comma to get a list of video ids
-                video_ids = video_ids.split(",")
-                # convert each video id to an integer
-                video_ids = [int(id) for id in video_ids]
-                # get the length of the list and store it as the duration value
-                duration = len(video_ids)
-            else:
-                print("dont have")
-                duration = 0
-            # update the duration attribute with the new value
-            self.duration = duration
-            # update the data frame with the new duration value for the matching id and video_ids
-            df.loc[(df.id == self.id) & (df.video_ids == self.video), 'duration'] = duration
-            # save the updated data frame to the same file
-            df.to_csv(self.file_path_list, index=False)'''
-
     @classmethod
     def delete_list(self, list_id):
         df = pd.read_csv(self.file_path_list, header=0)
@@ -112,65 +82,3 @@ class VideoList:
         except:
             return False
 
-
-
-
-'''
-#TODO: use this later on for create list
-data = pd.read_csv("videos.csv")
-# Loop through the rows in the DataFrame object
-for index, row in data.iterrows():
-    # Get the id value from the first column
-    id_value = row["id"]
-    # Do something with the id value, such as print it or store it in a variable
-
-videos = []
-for index, row in data.iterrows():
-    # Create a video object with the attributes from the row
-    video = Videos(row["title"], row["director"], row["rate"])
-    # Assign the id value from the row as a string
-    video.id = str(row["id"])
-    # Add the video object to the list
-    videos.append(video)
-
-# Create a list of video list objects with random titles
-video_lists = []
-video_lists.append(VideoList("My Favorite Movies"))
-video_lists.append(VideoList("Movies I Want to Watch"))
-
-# Assign random ids to the video list objects
-for i, video_list in enumerate(video_lists):
-    video_list.id = i + 1
-
-# Add random videos to each video list object and update the duration
-for video_list in video_lists:
-    # Choose a random number of videos to add, between 1 and 2
-    num_videos = random.randint(1, 2)
-    # Choose a random sample of videos from the videos list
-    sample_videos = random.sample(videos, num_videos)
-    # Add the sample videos to the video list object
-    video_list.video.extend(sample_videos)
-    # Update the duration of the video list object by counting the number of videos
-    video_list.duration = len(video_list.video)
-
-# Create a list of field names for the csv file
-field_names = ["id", "title", "video_ids", "duration"]
-
-# Open a new csv file with write mode
-with open("../controllers/video_lists.csv", "w") as csv_file:
-    # Create a csv writer object
-    csv_writer = csv.DictWriter(csv_file, fieldnames=field_names)
-    # Write the header row
-    csv_writer.writeheader()
-    # Loop through the video list objects and write each one as a row
-    for video_list in video_lists:
-        # Create a dictionary with the video list attributes
-        video_list_dict = {
-            "id": video_list.id,
-            "title": video_list.title,
-            # Join the ids of the videos in the list with commas
-            "video_ids": ",".join([video.id for video in video_list.video]),
-            "duration": video_list.duration
-        }
-        # Write the video list dictionary as a row
-        csv_writer.writerow(video_list_dict)'''

@@ -213,8 +213,3 @@ class UpdateVideo(tk.Frame):
             if is_deleted:
                 self.main_display.delete(item)
 
-
-'''if __name__ == "__main__":  # only runs when this file is run as a standalone
-    window = tk.Tk()  # create a TK object
-    UpdateVideo(window)  # open the CheckVideo GUI
-    window.mainloop()'''

@@ -19,9 +19,3 @@ class MainWindow(tk.Frame):
     def show_video_player_frame(self):
         self.show_frame(VideoPlayer)
 
-
-'''if __name__ == "__main__":  # only runs when this file is run as a standalone
-    window = tk.Tk()  # create a TK object
-    main_window = MainWindow(window)  # create a MainWindow object
-    main_window.pack()  # pack the MainWindow frame
-    window.mainloop()'''  # run the window main loop, reacting to button presses, etc
