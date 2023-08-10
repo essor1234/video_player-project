@@ -112,7 +112,10 @@ class UpdateVideo(tk.Frame):
                 for video in controller.find_videos_by_title(search_value):
                     self.main_display.insert("", "end", values=(video[0], video[1], video[2], "*" * int(video[3])))
             except TypeError:
-                self.main_display.insert("", "end", values=("", "None", "", ""))
+                warning_label = tk.Label(self.search_frame, text=f"There is no video have title name: {search_value} ",
+                                         fg="dark blue")
+                warning_label.grid(row=1, column=1)
+                warning_label.after(1000, warning_label.destroy)
 
         # if the selected mode is "Id":
         elif selected_mode == "Id":
@@ -128,15 +131,17 @@ class UpdateVideo(tk.Frame):
                 warning_label = tk.Label(self.search_frame, text=f"There's no {search_value}th video!", fg="red")
                 warning_label.grid(row=1, column=1)
                 warning_label.after(1000, warning_label.destroy)
-            except TypeError:
-                self.main_display.insert("", "end", values=("", "None", "", ""))
+
         # if the selected mode is "Director":
         elif selected_mode == "Director":
             try:
                 for video in controller.find_videos_by_director(search_value):
                     self.main_display.insert("", "end", values=(video[0], video[1], video[2], "*" * int(video[3])))
             except TypeError:
-                self.main_display.insert("", "end", values=("", "None", "", ""))
+                warning_label = tk.Label(self.search_frame, text=f"There is no video have director name: {search_value} ",
+                                         fg="dark blue")
+                warning_label.grid(row=1, column=1)
+                warning_label.after(1000, warning_label.destroy)
 
         # if the selected mode is "Rate":
         elif selected_mode == "Rate":

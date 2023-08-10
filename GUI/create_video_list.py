@@ -169,7 +169,10 @@ class CreateVideoList(tk.Frame):
                 for list in controller.find_list_by_title(search_value):
                     self.list_display.insert("", "end", values=(list[0], list[1], list[2]))
             except TypeError:
-                    self.list_display.insert("", "end", values=("", "None", "", ""))
+                warning_label = tk.Label(self.search_frame, text=f"There is no list have title name: {search_value} ",
+                                         fg="dark blue")
+                warning_label.grid(row=1, column=1)
+                warning_label.after(1000, warning_label.destroy)
 
         # if the selected mode is "Id":
         elif selected_mode == "Id":
