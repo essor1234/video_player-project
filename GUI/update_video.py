@@ -83,6 +83,7 @@ class UpdateVideo(tk.Frame):
         # Configure Treeview columns
         for col in self.columns:
             self.main_display.heading(col, text=col)
+        self.main_display.bind("<Button-1>", self.on_click)
 
         self.list_all()
 
@@ -161,6 +162,19 @@ class UpdateVideo(tk.Frame):
                 warning_label = tk.Label(self.search_frame, text=f"There's no {search_value} rate !", fg="red")
                 warning_label.grid(row=1, column=1)
                 warning_label.after(1000, warning_label.destroy)
+
+
+    def on_click(self, event):
+        # get the Treeview widget
+        tree = event.widget
+        # get the clicked area
+        x, y = event.x, event.y
+        # get the row at the clicked position
+        row = tree.identify_row(y)
+        # if the row is empty (outside of the Treeview widget)
+        if not row:
+            # clear the current selection
+            tree.selection_remove(tree.selection())
 
     def update_window_frame_display(self):
         item_id = self.main_display.focus()

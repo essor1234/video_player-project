@@ -224,7 +224,7 @@ class CreateVideoList(tk.Frame):
                 list_title = item[1]
             except ValueError:
                 list_id = -1
-                list_title = "None"
+                list_title = "(None)"
 
             return list_id, list_title
         except IndexError:
