@@ -82,7 +82,7 @@ class UpdateWindow(tk.Frame):
         except (TypeError, ValueError):
             warning_label = tk.Label(self.get_frame, text="Please enter valid rate{from 1-5}", fg="red")
             warning_label.grid(row=4, column=1, columnspan=3, padx=5, pady=5)
-            warning_label.after(500, warning_label.destroy)
+            warning_label.after(1000, warning_label.destroy)
             return
 
         current_play = self.get_plays.get(tk.ACTIVE)
@@ -92,21 +92,21 @@ class UpdateWindow(tk.Frame):
             if not self.warning_shown:
                 warning_label = tk.Label(self.get_frame, text="Video's title is required", fg="red")
                 warning_label.grid(row=4, column=1, columnspan=3, padx=5, pady=5)
-                warning_label.after(500, warning_label.destroy)
+                warning_label.after(1000, warning_label.destroy)
                 self.warning_shown = True
         elif not current_director:
             self.get_director.config(highlightbackground="red", highlightcolor="red")
             if not self.warning_shown:
                 warning_label = tk.Label(self.get_frame, text="Video's director is required", fg="red")
                 warning_label.grid(row=4, column=1, columnspan=3, padx=5, pady=5)
-                warning_label.after(500, warning_label.destroy)
+                warning_label.after(1000, warning_label.destroy)
                 self.warning_shown = True
         elif not current_rate or current_rate > 5:
             self.get_rate.config(highlightbackground="red", highlightcolor="red")
             if not self.warning_shown:
                 warning_label = tk.Label(self.get_frame, text="Please enter valid rate{from 1-5}", fg="red")
                 warning_label.grid(row=4, column=1, columnspan=3, padx=5, pady=5)
-                warning_label.after(500, warning_label.destroy)
+                warning_label.after(1000, warning_label.destroy)
                 self.warning_shown = True
         else:
             Videos.update_video(current_title, current_director, current_rate, current_play, video_id)

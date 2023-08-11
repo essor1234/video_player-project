@@ -109,7 +109,7 @@ class CheckVideos(tk.Frame):
         self.listbox.delete(0, tk.END)
         # loop over each video id in the tuple
         if not video_ids:
-            warning_label = tk.Label(self.search_frame, text="Please choose a list to delete", fg="red")
+            warning_label = tk.Label(self.search_frame, text="Please choose a video to check", fg="red")
             warning_label.grid(row=1, column=1)
             warning_label.after(1000, warning_label.destroy)
             return

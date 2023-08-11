@@ -197,10 +197,8 @@ class UpdateVideo(tk.Frame):
             except ValueError:
                 item = -1
 
-            video_title = controller.get_video_title(item)
-            video_director = controller.get_video_director(item)
-            video_rate = controller.get_video_rate(item)
-            video_play = controller.get_video_play(item)
+            video_title, video_director, video_rate, video_play = controller.check_video(item)
+
 
             return video_title, video_director, video_rate, video_play, item
         except IndexError:

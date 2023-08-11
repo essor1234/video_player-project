@@ -22,12 +22,12 @@ class VideosController:
             print(f"Error in thread {update_thread.name}: {e}")
 
     def update_data_list(self, file_path):
-        # Read the csv file and update the videos list every 3 seconds
+        # Read the csv file and update the videos list every 2 seconds
         while True:
             df = pd.read_csv(file_path)
             self.lists = VideoList.main()
             self.list_list()
-            timer = threading.Timer(3.0, self.update_data_list, args=(file_path,))
+            timer = threading.Timer(2.0, self.update_data_list, args=(file_path,))
             timer.start()
             break
 
@@ -41,12 +41,12 @@ class VideosController:
             print(f"Error in thread {update_thread.name}: {e}")
 
     def update_data_videos(self, file_path):
-        # Read the csv file and update the videos list every 5 seconds
+        # Read the csv file and update the videos list every 2 seconds
         while True:
             df = pd.read_csv(file_path)
             self.videos = Videos.main()
             self.list_videos()
-            timer = threading.Timer(3.0, self.update_data_videos, args=(file_path,))
+            timer = threading.Timer(2.0, self.update_data_videos, args=(file_path,))
             timer.start()
             break
 
