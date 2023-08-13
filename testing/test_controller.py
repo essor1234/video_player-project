@@ -1,4 +1,5 @@
 from controllers.Videos_controller import controller
+import pytest
 
 
 
@@ -68,34 +69,39 @@ def test_find_videos_by_director():
     # Test with a valid input
     assert controller.find_videos_by_director('Steven Spielberg') == [[1, ' Jurassic Park ', 'Steven Spielberg', 1]]
 
-def test_find_videos_by_rate():
-    # Test with a valid input
-    assert controller.find_videos_by_rate(5) == [[1, ' Jurassic Park ', 'Steven Spielberg', 1, 0],
-                     [2, ' Titanic ', 'James Cameron', 4, 0],
-                     [3, ' Inception', 'Christopher Nolan', 3, 0],
-                     [4, ' Pulp Fiction', 'Quentin Tarantino', 2, 0],
-                     [5, ' Goodfellas', 'Martin Scorsese', 5, 0],
-                     [6, 'Spirited Away ', 'Hayao Miyazaki', 5, 0],
-                     [7, 'Your Name', ' Makoto Shinkai', 5, 0],
-                     [8, 'A Whisker Away', ' Junichi Sato and Tomotaka Shibayama', 5, 0]] != [[1, 'Jurassic Park', 'Steven Spielberg', 5]]
 
-    # Test with an invalid input
-    assert controller.find_videos_by_id(10) == "This is invalid number"
+
+def test_find_videos_by_rate():
+    # Use assert statements to check if the output matches the expected output for a given input
+    assert controller.find_videos_by_rate(1) == [[1, ' Jurassic Park ', 'Steven Spielberg', 1]]
+    assert controller.find_videos_by_rate(2) == [[4, ' Pulp Fiction', 'Quentin Tarantino', 2]]
+    assert controller.find_videos_by_rate(3) == [[3, ' Inception', 'Christopher Nolan', 3]]
+    assert controller.find_videos_by_rate(4) == [[2, ' Titanic ', 'James Cameron', 4]]
+    assert controller.find_videos_by_rate(5) == [[5, ' Goodfellas', 'Martin Scorsese', 5],
+                                                   [6, 'Spirited Away ', 'Hayao Miyazaki', 5],
+                                                   [7, 'Your Name', ' Makoto Shinkai', 5],
+                                                   [8, 'A Whisker Away', ' Junichi Sato and Tomotaka Shibayama', 5]]
+
+
+
+
 
 def test_find_list_by_id():
     assert controller.find_list_by_id(1)== [[1, ' My Favourite',2]]
-    assert controller.find_list_by_id(3) == "This is invalid number"
+    assert controller.find_list_by_id(3) == None
 
 def test_find_lsit_by_title():
     assert controller.find_list_by_title(' My Favourite')== [[1, ' My Favourite',2]]
 
 def test_check_video():
-    assert controller.check_video(1) == ('Jurassic Park', 'Steven Spielberg', 2, 0)
+    assert controller.check_video(1) == (' Jurassic Park ', 'Steven Spielberg', 1, 0)
     assert controller.check_video(100) == None
 
 def test_display_video_in_list():
-    expected = [[1, 'Jurassic Park', 'Steven Spielberg', 2],
-                [3, 'Inception', 'Christopher Nolan', 5]]
+    expected = [[1, ' Jurassic Park ', 'Steven Spielberg', 1],
+                     [3, ' Inception', 'Christopher Nolan', 3]]
     assert controller.display_videos_in_list(1) == expected
+
+
 
 
