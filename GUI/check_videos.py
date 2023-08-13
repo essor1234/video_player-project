@@ -53,7 +53,7 @@ class CheckVideos(tk.Frame):
 
 
         # Create a button to list all items
-        btn_check_video = ttk.Button(button_frame, text="Check_video", compound="left",
+        btn_check_video = ttk.Button(button_frame, text="Check Video", compound="left",
                                   command=self.check_video)
         btn_check_video.config(width=15)
         btn_check_video.grid(row=0, column=2)

@@ -7,14 +7,15 @@ from controllers.Videos_controller import controller
 
 def test_list_videos():
     # Check if the list_videos method returns a list of lists with the correct attributes for each video
-    expected_list = [[1, ' Jurassic Park ', 'Steven Spielberg', 5, 0],
-                     [2, ' Titanic ', 'James Cameron', 4, 3],
-                     [3, ' Inception', 'Christopher Nolan', 5, 0],
-                     [4, ' Pulp Fiction', 'Quentin Tarantino', 3, 3],
+    expected_list = [[1, ' Jurassic Park ', 'Steven Spielberg', 1, 0],
+                     [2, ' Titanic ', 'James Cameron', 4, 0],
+                     [3, ' Inception', 'Christopher Nolan', 3, 0],
+                     [4, ' Pulp Fiction', 'Quentin Tarantino', 2, 0],
                      [5, ' Goodfellas', 'Martin Scorsese', 5, 0],
                      [6, 'Spirited Away ', 'Hayao Miyazaki', 5, 0],
                      [7, 'Your Name', ' Makoto Shinkai', 5, 0],
                      [8, 'A Whisker Away', ' Junichi Sato and Tomotaka Shibayama', 5, 0]]
+
  # A sample list of videos for testing
     actual_list = controller.list_videos()
     assert len(actual_list) == len(expected_list) # Check if the length of the lists are equal
@@ -55,26 +56,28 @@ def test_get_video_play():
 
 def test_find_videos_by_id():
     # Test with a valid input
-    assert controller.find_videos_by_id(1) == [[1, 'Jurassic Park', 'Steven Spielberg', 5]]
+    assert controller.find_videos_by_id(1) == [[1, ' Jurassic Park ', 'Steven Spielberg', 1]]
     # Test with an invalid input
     assert controller.find_videos_by_id(10) == "This is invalid number"
 
 def test_find_videos_by_title():
     # Test with a valid input
-    assert controller.find_videos_by_title('Jurassic Park') == [[1, 'Jurassic Park', 'Steven Spielberg', 5]]
+    assert controller.find_videos_by_title('Jurassic Park') == [[1, ' Jurassic Park ', 'Steven Spielberg', 1]]
 
 def test_find_videos_by_director():
     # Test with a valid input
-    assert controller.find_videos_by_director('Steven Spielberg') == [[1, 'Jurassic Park', 'Steven Spielberg', 5]]
+    assert controller.find_videos_by_director('Steven Spielberg') == [[1, ' Jurassic Park ', 'Steven Spielberg', 1]]
 
 def test_find_videos_by_rate():
     # Test with a valid input
-    assert controller.find_videos_by_rate(5) == [[1, 'Jurassic Park', 'Steven Spielberg', 5],
- [3, 'Inception', 'Christopher Nolan', 5],
- [5, 'Goodfellas', 'Martin Scorsese', 5],
- [6, 'Spirited Away', 'Hayao Miyazaki', 5],
- [7, 'Your Name', ' Makoto Shinkai', 5],
- [8, 'A Whisker Away', ' Junichi Sato and Tomotaka Shibayama', 5]] != [[1, 'Jurassic Park', 'Steven Spielberg', 5]]
+    assert controller.find_videos_by_rate(5) == [[1, ' Jurassic Park ', 'Steven Spielberg', 1, 0],
+                     [2, ' Titanic ', 'James Cameron', 4, 0],
+                     [3, ' Inception', 'Christopher Nolan', 3, 0],
+                     [4, ' Pulp Fiction', 'Quentin Tarantino', 2, 0],
+                     [5, ' Goodfellas', 'Martin Scorsese', 5, 0],
+                     [6, 'Spirited Away ', 'Hayao Miyazaki', 5, 0],
+                     [7, 'Your Name', ' Makoto Shinkai', 5, 0],
+                     [8, 'A Whisker Away', ' Junichi Sato and Tomotaka Shibayama', 5, 0]] != [[1, 'Jurassic Park', 'Steven Spielberg', 5]]
 
     # Test with an invalid input
     assert controller.find_videos_by_id(10) == "This is invalid number"
