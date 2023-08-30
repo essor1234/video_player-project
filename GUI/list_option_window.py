@@ -190,6 +190,7 @@ class ListOptionWindow(tk.Frame):
 
 
         for line in self.video_added.get_children():
+            # returns a dictionary containing information about the item
             video = self.video_added.item(line)["values"]
             video_list.append(str(video[0]))
 

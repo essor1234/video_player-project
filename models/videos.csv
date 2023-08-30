@@ -1,9 +1,9 @@
 id,title,director,rate,plays
-1, Jurassic Park ,Steven Spielberg,1,0
+1, Jurassic Park ,Steven Spielberg,5,3
 2, Titanic ,James Cameron,4,0
-3, Inception,Christopher Nolan,3,0
-4, Pulp Fiction,Quentin Tarantino,2,0
-5, Goodfellas,Martin Scorsese,5,0
+3, Inception,Christopher Nolan,3,4
+4, Pulp Fiction,Quentin Tarantino,2,1
+5, Goodfellas,Martin Scorsese,5,1
 6,Spirited Away ,Hayao Miyazaki,5,0
-7,Your Name, Makoto Shinkai,5,0
+7,Your Name, Makoto Shinkai,5,1
 8,A Whisker Away, Junichi Sato and Tomotaka Shibayama,5,0

@@ -29,7 +29,7 @@ class CheckVideos(tk.Frame):
         self.search_entry.grid(row=0, column=1)
 
         # Create a list of search options
-        search_options = ["Title", "Director", "Rate", "Id"]
+        search_options = ["Title", "Director", "Rate", "Id", "plays"]
         # Create a variable to store the selected option
         self.selected_option = tk.StringVar()
         # Set the default value of the variable to the first option
@@ -123,7 +123,6 @@ class CheckVideos(tk.Frame):
             except IndexError:
                 # if there is no value, skip this video
                 continue
-            # check if the video key is valid
             video_title, video_director, video_rate, video_plays = controller.check_video(video_key)
             # insert a blank line between each video
             self.listbox.insert(tk.END, "")
@@ -139,6 +138,7 @@ class CheckVideos(tk.Frame):
 
     def update_search_mode(self, selected_mode):
         # Clear the treeview widget
+        # * for unpack element of an iterable
         self.main_display.delete(*self.main_display.get_children())
         # get input from user
         search_value = self.search_entry.get()
@@ -202,6 +202,25 @@ class CheckVideos(tk.Frame):
                 warning_label = tk.Label(self.search_frame, text=f"There's no {search_value} rate !", fg="red")
                 warning_label.grid(row=1, column=1)
                 warning_label.after(1000, warning_label.destroy)
+
+        elif selected_mode == "plays":
+            try:
+                search_value = int(search_value)
+                for video in controller.find_videos_by_plays(search_value):
+                    self.main_display.insert("", "end", values=(video[0], video[1], video[2], "*" * int(video[3])))
+            except ValueError:
+                warning_label = tk.Label(self.search_frame, text="Please enter a valid integer!", fg="red")
+                warning_label.grid(row=1, column=1)
+                warning_label.after(1000, warning_label.destroy)
+            except IndexError:
+                warning_label = tk.Label(self.search_frame, text=f"There's no {search_value} rate !", fg="red")
+                warning_label.grid(row=1, column=1)
+                warning_label.after(1000, warning_label.destroy)
+            except TypeError:
+                warning_label = tk.Label(self.search_frame, text=f"There's no {search_value} rate !", fg="red")
+                warning_label.grid(row=1, column=1)
+                warning_label.after(1000, warning_label.destroy)
+
 
 
 

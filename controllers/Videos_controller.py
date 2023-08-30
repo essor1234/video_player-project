@@ -175,6 +175,18 @@ class VideosController:
         else:
             return video_list
 
+    def find_videos_by_plays(self, video_plays):
+        video_list=[]
+        for video in self.videos:
+            if video_plays == video.plays:
+                video_list.append([video.id, video.title, video.director, video.rate])
+
+        if not video_list:
+            return None
+        else:
+            return video_list
+
+
     def find_list_by_id(self, list_id):
         list_list = []
         for list in self.lists:
@@ -217,6 +229,11 @@ class VideosController:
                 # split the info.video string by comma and convert each element to an integer
                 try:
                     video_ids = [int(id) for id in str(info.video).split(",")]
+                    '''
+                    video_ids = []
+                    for id in str(info.video).split(","):
+                        video_ids.append(int(id))
+                    '''
                     for video_id in video_ids:
                         for vid in self.videos:
                             if video_id == int(vid.id):

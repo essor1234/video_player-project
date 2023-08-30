@@ -2,6 +2,7 @@ import os
 import pandas as pd
 
 class VideoList:
+    # get the absolute path of the script that is currently being executed.
     script_path = os.path.abspath(__file__)
     # Get the absolute path of the parent directory
     parent_path = os.path.dirname(script_path)

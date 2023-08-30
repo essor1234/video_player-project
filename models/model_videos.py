@@ -52,7 +52,7 @@ class Videos:
         df_list = pd.read_csv(self.file_path_list)
         try:
             # get the video_ids value from the row that matches the list_id
-            video_ids = df_list.loc[df_list.id == list_id, 'video_ids'].values[0]
+            video_ids = df_list.loc[df_list.id == list_id, 'video_ids'].values[0] # [0] select only first element of the result array
             # split the video_ids by comma to get a list of video ids
             video_ids = video_ids.split(",")
             # convert each video id to an integer
@@ -84,6 +84,7 @@ class Videos:
     @classmethod
     def update_video(self, video_title, video_director, video_rate, video_play, video_id):
         df = pd.read_csv(self.file_path_videos, header=0)
+        # get index value of these rows, then return the first element of the resulting array
         index = df.index[df.id == video_id][0]
         # update parts
         df.loc[index, "title"] = video_title

@@ -130,9 +130,9 @@ class CreateVideoList(tk.Frame):
             warning_label.grid(row=1, column=1)
             warning_label.after(1000, warning_label.destroy)
             return
-
         for item in selected_items:
             try:
+                # get the id from value part
                 list_id = int(self.list_display.item(item)["values"][0])
             except ValueError:
                 list_id =-1
@@ -199,7 +199,6 @@ class CreateVideoList(tk.Frame):
         # pack the CheckVideo frame
         check_video_frame.pack()
 
-    #TODO: work on this
     def list_option_window_frame_display(self):
             selected_items = self.list_display.focus()
             if selected_items:
@@ -238,6 +237,7 @@ class CreateVideoList(tk.Frame):
         self.info_for_chosen_list()
 
     def video_in_list_display(self, event):
+        # unpack then delete
         self.video_display.delete(*self.video_display.get_children())
         # get the selected item from the event widget
         item_id = event.widget.focus()
